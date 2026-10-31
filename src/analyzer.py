@@ -201,26 +201,26 @@ def _phase_aware_quote_labels_zh(context: Dict[str, Any]) -> Tuple[str, str]:
     """Choose Chinese quote-table labels that do not conflict with phase context."""
     phase_context = context.get("market_phase_context")
     if not isinstance(phase_context, dict):
-        return "今日行情", "收盘价"
+        return "今日行情", "收盤價"
 
     phase = str(phase_context.get("phase") or "").strip()
     if phase in {"premarket", "non_trading"}:
         today = context.get("today")
         if _today_looks_complete_daily_bar(context, phase_context):
-            return "上一完整交易日行情", "上一完整交易日收盘价"
+            return "上一完整交易日行情", "上一完整交易日收盤價"
         if _today_has_realtime_overlay(today):
-            return "最新行情", "实时估算价"
+            return "最新行情", "即時估算價"
         if isinstance(today, dict) and today.get("close") not in (None, ""):
-            return "最新行情", "最新价"
-        return "今日行情", "收盘价"
+            return "最新行情", "最新價"
+        return "今日行情", "收盤價"
 
     if (
         phase in {"intraday", "lunch_break", "closing_auction"}
         and phase_context.get("is_partial_bar") is True
     ):
-        return "最新行情", "盘中估算价"
+        return "最新行情", "盤中估算價"
 
-    return "今日行情", "收盘价"
+    return "今日行情", "收盤價"
 
 
 def _should_hide_regular_session_ohlc(context: Dict[str, Any]) -> bool:
@@ -271,13 +271,13 @@ def _legacy_audit_marker_specs(
     add("stock_code", code)
     add("stock_name", stock_name)
     add("analysis_date", context.get("date"))
-    add("market_phase", "## Market Phase Context" if report_language in ("en", "ko") else "## 市场阶段上下文")
-    add("daily_market_context", "## Daily Market Context" if report_language in ("en", "ko") else "## 大盘环境摘要")
-    add("market_structure_context", "## Market Structure Context" if report_language in ("en", "ko") else "## 市场结构上下文")
+    add("market_phase", "## Market Phase Context" if report_language in ("en", "ko") else "## 市場階段上下文")
+    add("daily_market_context", "## Daily Market Context" if report_language in ("en", "ko") else "## 大盤環境摘要")
+    add("market_structure_context", "## Market Structure Context" if report_language in ("en", "ko") else "## 市場結構情境")
     add("analysis_context_pack", analysis_context_pack_summary)
     english = report_language in ("en", "ko")
-    add("quote", "## 📈 Technical Data" if english else "## 📈 技术面数据")
-    news_marker = "## 📰 News Intelligence" if english else "## 📰 舆情情报"
+    add("quote", "## 📈 Technical Data" if english else "## 📈 技術面數據")
+    news_marker = "## 📰 News Intelligence" if english else "## 📰 輿情情報"
     add("news_context", news_marker if news_context else None)
     return markers
 
@@ -431,25 +431,25 @@ def apply_placeholder_fill(result: "AnalysisResult", missing_fields: List[str]) 
         "dashboard.phase_decision.action_window": _localized_text(
             report_language,
             en="Model did not provide a phase action window",
-            zh="模型未提供阶段化行动窗口",
+            zh="模型未提供階段化行動窗口",
             ko="모델이 단계별 행동 구간을 제공하지 않았습니다",
         ),
         "dashboard.phase_decision.immediate_action": _localized_text(
             report_language,
             en="Model did not provide a phase-aware immediate action",
-            zh="模型未提供阶段化即时动作",
+            zh="模型未提供階段化即時動作",
             ko="모델이 단계 인식 즉시 동작을 제공하지 않았습니다",
         ),
         "dashboard.phase_decision.next_check_time": _localized_text(
             report_language,
             en="Model did not provide a next check point",
-            zh="模型未提供下一次检查点",
+            zh="模型未提供下次檢查點",
             ko="모델이 다음 점검 시점을 제공하지 않았습니다",
         ),
         "dashboard.phase_decision.confidence_reason": _localized_text(
             report_language,
             en="Model did not provide a phase confidence rationale",
-            zh="模型未提供阶段化置信度理由",
+            zh="模型未提供階段化信賴度理由",
             ko="모델이 단계별 신뢰도 근거를 제공하지 않았습니다",
         ),
     }
@@ -538,7 +538,7 @@ _RISK_WARNING_PLACEHOLDER_TEXTS = {
     "null",
     "unknown",
     "tbd",
-    "暂无",
+    "暫無",
     "待补充",
     "数据缺失",
     "未知",
@@ -547,17 +547,17 @@ _RISK_WARNING_PLACEHOLDER_TEXTS = {
 
 _STRUCTURAL_RISK_PHRASE_HINTS = (
     "重大利空",
-    "重大风险",
-    "关键风险",
-    "减持",
-    "高位减持",
+    "重大風險",
+    "關鍵風險",
+    "減持",
+    "高位減持",
     "退市",
-    "退市风险",
+    "退市風險",
     "停牌",
     "重大问询",
     "处罚",
     "限售",
-    "违规",
+    "違規",
     "违规风险",
     "诉讼",
     "问询",
@@ -636,8 +636,8 @@ def _coerce_chip_metric(v: Any) -> Optional[float]:
 
 
 _BULLISH_TREND_HINTS: Tuple[str, ...] = (
-    "多头排列",
-    "持续上涨",
+    "多頭排列",
+    "持續上漲",
     "趋势向上",
     "上升趋势",
     "向上发散",
@@ -849,7 +849,7 @@ def _sanitize_trend_analysis_for_prompt(
             prompt_notes.append(
                 "The technical structure is bullish; bearish structure reasons that directly conflict with the bullish view were removed."
                 if english
-                else "当前技术结构偏多，已剔除与多头主判断直接冲突的空头结构理由。"
+                else "当前技术结构偏多，已剔除与主判断直接冲突的空头结构理由。"
             )
         signal_reasons = filtered_signal_reasons
         filtered_risk_factors = _filter_conflicting_trend_items(
@@ -860,7 +860,7 @@ def _sanitize_trend_analysis_for_prompt(
             prompt_notes.append(
                 "The technical structure is bullish; bearish structure risk statements that directly conflict with the bullish view were removed."
                 if english
-                else "当前技术结构偏多，已剔除与多头主判断直接冲突的空头结构风险表述。"
+                else "当前技术结构偏多，已剔除与主判断直接冲突的空头结构风险表述。"
             )
         risk_factors = filtered_risk_factors
 
@@ -1725,10 +1725,10 @@ class AnalysisResult:
     name: str
 
     # ========== 核心指标 ==========
-    sentiment_score: int  # 综合评分 0-100 (>70强烈看多, >60看多, 40-60震荡, <40看空)
-    trend_prediction: str  # 趋势预测：强烈看多/看多/震荡/看空/强烈看空
-    operation_advice: str  # 操作建议：买入/加仓/持有/减仓/卖出/观望
-    decision_type: str = "hold"  # 决策类型：buy/hold/sell（用于统计）
+    sentiment_score: int  # 綜合評分 0-100 (>70强烈看多, >60看多, 40-60震荡, <40看空)
+    trend_prediction: str  # 趨勢預測：強烈看多/看多/震盪/看空/強烈看空
+    operation_advice: str  # 操作建議：買進/加倉/持有/減倉/賣出/觀望
+    decision_type: str = "hold"  # 決策類型：buy/hold/sell（用於統計）
     confidence_level: str = "中"  # 置信度：高/中/低
     report_language: str = "zh"  # 报告输出语言：zh/en
     action: Optional[str] = None  # 建议动作 taxonomy：buy/add/hold/reduce/sell/watch/avoid/alert
@@ -1885,7 +1885,7 @@ class AnalysisResult:
         return emoji
 
     def get_confidence_stars(self) -> str:
-        """返回置信度星级"""
+        """返回置信度星級"""
         star_map = {
             "高": "⭐⭐⭐",
             "high": "⭐⭐⭐",
@@ -2042,17 +2042,17 @@ class GeminiAnalyzer:
 
         "phase_decision": {
             "phase_context": {"phase": "premarket/intraday/lunch_break/closing_auction/postmarket/non_trading/unknown"},
-            "action_window": "盘前计划/盘中跟踪/午间确认/收盘前风控/盘后复盘/非交易日观察",
-            "immediate_action": "立即行动/等待确认/观察/止损止盈预警/禁止追高/无盘中动作",
-            "watch_conditions": ["观察条件1", "观察条件2"],
-            "next_check_time": "下一次检查点或市场本地时间",
-            "confidence_reason": "置信度理由，说明阶段和数据质量限制",
-            "data_limitations": ["阶段或数据质量限制1", "阶段或数据质量限制2"]
+            "action_window": "盤前計畫/盤中追蹤/午間確認/收盤前風控/盤後複盤/非交易日觀察",
+            "immediate_action": "立即行動/等待確認/觀察/停損止盈預警/禁止追高/無盤中動作",
+            "watch_conditions": ["觀察條件1", "觀察條件2"],
+            "next_check_time": "下次檢查點或市場本地時間",
+            "confidence_reason": "置信度理由，說明階段和資料品質限制",
+            "data_limitations": ["階段或資料品質限制1", "階段或資料品質限制2"]
         },
 
         "signal_attribution": {
-            "technical_indicators": 技术指标贡献度(0-100),
-            "news_sentiment": 新闻舆情贡献度(0-100),
+            "technical_indicators": 技術指標貢獻度(0-100),
+            "news_sentiment": 新聞輿情貢獻度(0-100),
             "fundamentals": 基本面贡献度(0-100),
             "market_conditions": 市场环境贡献度(0-100),
             "strongest_bullish_signal": "最强看多信号名称",
@@ -2065,7 +2065,7 @@ class GeminiAnalyzer:
     "risk_warning": "风险提示",
     "buy_reason": "操作理由，引用交易理念",
 
-    "trend_analysis": "走势形态分析",
+    "trend_analysis": "走勢形態分析",
     "short_term_outlook": "短期1-3日展望",
     "medium_term_outlook": "中期1-2周展望",
     "technical_analysis": "技术面综合分析",
@@ -2073,45 +2073,45 @@ class GeminiAnalyzer:
     "volume_analysis": "量能分析",
     "pattern_analysis": "K线形态分析",
     "fundamental_analysis": "基本面分析",
-    "sector_position": "板块行业分析",
-    "company_highlights": "公司亮点/风险",
-    "news_summary": "新闻摘要",
-    "market_sentiment": "市场情绪",
-    "hot_topics": "相关热点",
+    "sector_position": "板塊產業分析",
+    "company_highlights": "公司亮點/風險",
+    "news_summary": "新聞摘要",
+    "market_sentiment": "市場情緒",
+    "hot_topics": "相關熱點",
 
     "search_performed": true/false,
-    "data_sources": "数据来源说明"
+    "data_sources": "資料來源說明"
 }
 ```
 
-## 评分标准
+## 評分標準
 
-### 强烈买入（80-100分）：
-- ✅ 多头排列：MA5 > MA10 > MA20
-- ✅ 低乖离率：<2%，最佳买点
-- ✅ 缩量回调或放量突破
-- ✅ 筹码集中健康
+### 強烈買入（80-100分）：
+- ✅ 多頭排列：MA5 > MA10 > MA20
+- ✅ 低乖離率：<2%，最佳買點
+- ✅ 縮量回檔或放量突破
+- ✅ 籌碼集中健康
 - ✅ 消息面有利好催化
 
-### 买入（60-79分）：
-- ✅ 多头排列或弱势多头
-- ✅ 乖离率 <5%
+### 買入（60-79分）：
+- ✅ 多頭排列或弱勢多頭
+- ✅ 乖離率 <5%
 - ✅ 量能正常
-- ⚪ 允许一项次要条件不满足
+- ⚪ 允許一項次要條件不滿足
 
-### 观望（40-59分）：
-- ⚠️ 乖离率 >5%（追高风险）
-- ⚠️ 均线缠绕趋势不明
-- ⚠️ 有风险事件
+### 觀望（40-59分）：
+- ⚠️ 乖離率 >5%（追高风险）
+- ⚠️ 均線纏繞趨勢不明
+- ⚠️ 有風險事件
 
-### 减仓（20-39分）：
-- ⚠️ 趋势走弱或跌破关键均线
-- ⚠️ 资金/量能转弱，风险明显高于收益
-- ⚠️ 以降低仓位和保护收益为主
+### 減倉（20-39分）：
+- ⚠️ 趨勢走弱或跌破關鍵均線
+- ⚠️ 資金/量能轉弱，風險明顯高於收益
+- ⚠️ 以降低部位和保護收益為主
 
-### 卖出（0-19分）：
-- ❌ 空头排列或趋势显著恶化
-- ❌ 跌破关键支撑/止损位
+### 賣出（0-19分）：
+- ❌ 空頭排列或趨勢顯著惡化
+- ❌ 跌破關鍵支撐/停損位
 - ❌ 放量下跌或重大利空
 
 ## 决策仪表盘核心原则
@@ -2151,7 +2151,7 @@ class GeminiAnalyzer:
     "stock_name": "股票中文名称",
     "sentiment_score": 0-100整数,
     "trend_prediction": "强烈看多/看多/震荡/看空/强烈看空",
-    "operation_advice": "买入/加仓/持有/减仓/卖出/观望",
+    "operation_advice": "買入/加倉/持有/減倉/賣出/觀望",
     "decision_type": "buy/hold/sell",
     "action": "buy/add/hold/reduce/sell/watch/avoid/alert",
     "guardrail_reason": "当分数区间与最终 action 不一致时填写降级/升级原因，否则留空",
@@ -2160,29 +2160,29 @@ class GeminiAnalyzer:
     "dashboard": {
         "core_conclusion": {
             "one_sentence": "一句话核心结论（30字以内，直接告诉用户做什么）",
-            "signal_type": "🟢买入信号/🟡持有观望/🔴卖出信号/⚠️风险警告",
-            "time_sensitivity": "立即行动/今日内/本周内/不急",
+            "signal_type": "🟢買進訊號/🟡持有觀望/🔴賣出訊號/⚠️風險警告",
+            "time_sensitivity": "立即行動/今日內/本週內/不急",
             "position_advice": {
-                "no_position": "空仓者建议：具体操作指引",
-                "has_position": "持仓者建议：具体操作指引"
+                "no_position": "空倉者建議：具體操作指引",
+                "has_position": "持倉者建議：具體操作指引"
             }
         },
 
         "data_perspective": {
             "trend_status": {
-                "ma_alignment": "均线排列状态描述",
+                "ma_alignment": "均線排列狀態描述",
                 "is_bullish": true/false,
                 "trend_score": 0-100
             },
             "price_position": {
                 "current_price": 当前价格数值,
                 "ma5": MA5数值,
-                "ma10": MA10数值,
-                "ma20": MA20数值,
-                "bias_ma5": 乖离率百分比数值,
+                "ma10": MA10數值,
+                "ma20": MA20數值,
+                "bias_ma5": 乖離率百分比數值,
                 "bias_status": "安全/警戒/危险",
-                "support_level": 支撑位价格,
-                "resistance_level": 压力位价格
+                "support_level": 支撐位價格,
+                "resistance_level": 壓力位價格
             },
             "volume_analysis": {
                 "volume_ratio": 量比数值,
@@ -2191,19 +2191,19 @@ class GeminiAnalyzer:
                 "volume_meaning": "量能含义解读（如：缩量回调表示抛压减轻）"
             },
             "chip_structure": {
-                "profit_ratio": 获利比例,
+                "profit_ratio": 獲利比例,
                 "avg_cost": 平均成本,
-                "concentration": 筹码集中度,
+                "concentration": 籌碼集中度,
                 "chip_health": "健康/一般/警惕"
             }
         },
 
         "intelligence": {
             "latest_news": "【最新消息】近期重要新闻摘要",
-            "risk_alerts": ["风险点1：具体描述", "风险点2：具体描述"],
-            "positive_catalysts": ["利好1：具体描述", "利好2：具体描述"],
-            "earnings_outlook": "业绩预期分析（基于年报预告、业绩快报等）",
-            "sentiment_summary": "舆情情绪一句话总结"
+            "risk_alerts": ["風險點1：具體描述", "風險點2：具體描述"],
+            "positive_catalysts": ["利好1：具體描述", "利好2：具體描述"],
+            "earnings_outlook": "業績預期分析（基於年報預告、業績快報等）",
+            "sentiment_summary": "輿情情緒一句話總結"
         },
 
         "battle_plan": {
