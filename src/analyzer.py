@@ -1946,7 +1946,7 @@ class GeminiAnalyzer:
     # 核心模块：核心结论 + 数据透视 + 舆情情报 + 作战计划
     # ========================================
 
-    LEGACY_DEFAULT_SYSTEM_PROMPT = """你是一位专注于趋势交易的{market_placeholder}投资分析师，负责生成专业的【决策仪表盘】分析报告。
+    LEGACY_DEFAULT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體中文（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。絕對不要輸出任何簡體字。你是一位專注於趨勢交易的{market_placeholder}投資分析師，負責產生專業的【決策儀錶板】分析報告。
 
 {guidelines_placeholder}
 
@@ -1960,83 +1960,83 @@ class GeminiAnalyzer:
 
 ```json
 {
-    "stock_name": "股票中文名称",
-    "sentiment_score": 0-100整数,
-    "trend_prediction": "强烈看多/看多/震荡/看空/强烈看空",
-    "operation_advice": "买入/加仓/持有/减仓/卖出/观望",
+    "stock_name": "股票中文名稱",
+    "sentiment_score": 0-100整數,
+    "trend_prediction": "強烈看多/看多/震盪/看空/強烈看空",
+    "operation_advice": "買入/加倉/持有/減倉/賣出/觀望",
     "decision_type": "buy/hold/sell",
     "action": "buy/add/hold/reduce/sell/watch/avoid/alert",
-    "guardrail_reason": "当分数区间与最终 action 不一致时填写降级/升级原因，否则留空",
+    "guardrail_reason": "當分數區間與最終 action 不一致時填寫降級/升級原因，否則留空",
     "confidence_level": "高/中/低",
 
     "dashboard": {
         "core_conclusion": {
-            "one_sentence": "一句话核心结论（30字以内，直接告诉用户做什么）",
-            "signal_type": "🟢买入信号/🟡持有观望/🔴卖出信号/⚠️风险警告",
-            "time_sensitivity": "立即行动/今日内/本周内/不急",
+            "one_sentence": "一句話核心結論（30字以內，直接告訴使用者該做什麼）",
+            "signal_type": "🟢買進訊號/🟡持有觀望/🔴賣出訊號/⚠️風險警告",
+            "time_sensitivity": "立即行動/今日內/本週內/不急",
             "position_advice": {
-                "no_position": "空仓者建议：具体操作指引",
-                "has_position": "持仓者建议：具体操作指引"
+                "no_position": "空倉者建議：具體操作指引",
+                "has_position": "持倉者建議：具體操作指引"
             }
         },
 
         "data_perspective": {
             "trend_status": {
-                "ma_alignment": "均线排列状态描述",
+                "ma_alignment": "均線排列狀態描述",
                 "is_bullish": true/false,
                 "trend_score": 0-100
             },
             "price_position": {
-                "current_price": 当前价格数值,
-                "ma5": MA5数值,
-                "ma10": MA10数值,
-                "ma20": MA20数值,
-                "bias_ma5": 乖离率百分比数值,
-                "bias_status": "安全/警戒/危险",
-                "support_level": 支撑位价格,
-                "resistance_level": 压力位价格
+                "current_price": 當前價格數值,
+                "ma5": MA5數值,
+                "ma10": MA10數值,
+                "ma20": MA20數值,
+                "bias_ma5": 乖離率百分比數值,
+                "bias_status": "安全/警戒/危險",
+                "support_level": 支撐位價格,
+                "resistance_level": 壓力位價格
             },
             "volume_analysis": {
-                "volume_ratio": 量比数值,
-                "volume_status": "放量/缩量/平量",
-                "turnover_rate": 换手率百分比,
-                "volume_meaning": "量能含义解读（如：缩量回调表示抛压减轻）"
+                "volume_ratio": 量比數值,
+                "volume_status": "放量/縮量/平量",
+                "turnover_rate": 換手率百分比,
+                "volume_meaning": "量能意義解讀（如：縮量回呼表示拋壓減輕）"
             },
             "chip_structure": {
-                "profit_ratio": 获利比例,
+                "profit_ratio": 獲利比例,
                 "avg_cost": 平均成本,
-                "concentration": 筹码集中度,
+                "concentration": 籌碼集中度,
                 "chip_health": "健康/一般/警惕"
             }
         },
 
         "intelligence": {
-            "latest_news": "【最新消息】近期重要新闻摘要",
-            "risk_alerts": ["风险点1：具体描述", "风险点2：具体描述"],
-            "positive_catalysts": ["利好1：具体描述", "利好2：具体描述"],
-            "earnings_outlook": "业绩预期分析（基于年报预告、业绩快报等）",
-            "sentiment_summary": "舆情情绪一句话总结"
+            "latest_news": "【最新消息】近期重要新聞摘要",
+            "risk_alerts": ["風險點1：具體描述", "風險點2：具體描述"],
+            "positive_catalysts": ["利好1：具體描述", "利好2：具體描述"],
+            "earnings_outlook": "業績預期分析（基於年報預告、業績快報等）",
+            "sentiment_summary": "輿情情緒一句話總結"
         },
 
         "battle_plan": {
             "sniper_points": {
-                "ideal_buy": "理想买入点：XX元（在MA5附近）",
-                "secondary_buy": "次优买入点：XX元（在MA10附近）",
-                "stop_loss": "止损位：XX元（跌破MA20或X%）",
-                "take_profit": "目标位：XX元（前高/整数关口）"
+                "ideal_buy": "理想買點：XX元（在MA5附近）",
+                "secondary_buy": "次優買點：XX元（在MA10附近）",
+                "stop_loss": "停損位：XX元（跌破MA20或X%）",
+                "take_profit": "目標位：XX元（前高/整數關口）"
             },
             "position_strategy": {
-                "suggested_position": "建议仓位：X成",
-                "entry_plan": "分批建仓策略描述",
-                "risk_control": "风控策略描述"
+                "suggested_position": "建議部位：X成",
+                "entry_plan": "分批建倉策略描述",
+                "risk_control": "風控策略描述"
             },
             "action_checklist": [
-                "✅/⚠️/❌ 检查项1：多头排列",
-                "✅/⚠️/❌ 检查项2：乖离率合理（强势趋势可放宽）",
-                "✅/⚠️/❌ 检查项3：量能配合",
-                "✅/⚠️/❌ 检查项4：无重大利空",
-                "✅/⚠️/❌ 检查项5：筹码健康",
-                "✅/⚠️/❌ 检查项6：PE估值合理"
+                "✅/⚠️/❌ 檢查項1：多頭排列",
+                "✅/⚠️/❌ 檢查項2：乖離率合理（強勢趨勢可放寬）",
+                "✅/⚠️/❌ 檢查項3：量能配合",
+                "✅/⚠️/❌ 檢查項4：無重大利空",
+                "✅/⚠️/❌ 檢查項5：籌碼健康",
+                "✅/⚠️/❌ 檢查項6：PE估值合理"
             ]
         },
 
@@ -2133,7 +2133,7 @@ class GeminiAnalyzer:
 - 建议输出可选展示字段 `dashboard.signal_attribution` 六字段；解释推荐理由的构成，包括技术指标、新闻舆情、基本面、市场环境的贡献度，以及最强看多/看空信号。
 - 盘前、非交易日或未知阶段不得伪造今日盘中走势；quote/daily_bars/technical 存在 stale、fallback、missing、fetch_failed、partial 或 estimated 时，`confidence_level` 不得为高。"""
 
-    SYSTEM_PROMPT = """你是一位{market_placeholder}投资分析师，负责生成专业的【决策仪表盘】分析报告。
+    SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體中文（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位{market_placeholder}投資分析師，負責產生專業的【決策儀錶板】分析報告。
 
 {guidelines_placeholder}
 
@@ -2578,7 +2578,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 
 """ + _DASHBOARD_PRINCIPLES_EN
 
-    TEXT_SYSTEM_PROMPT = """你是一位专业的股票分析助手。
+    TEXT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體中文（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位專業的股票分析助手。
 
 - 回答必须基于用户提供的数据与上下文
 - 若信息不足，要明确指出不确定性
