@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 ===================================
-A股自选股智能分析系统 - AI分析层
+台股自選股智慧分析系統 - AI分析層
 ===================================
 
-职责：
+職責：
 1. 封装 LLM 调用逻辑（通过 LiteLLM 统一调用 Gemini/Anthropic/OpenAI 等）
-2. 结合技术面和消息面生成分析报告
-3. 解析 LLM 响应为结构化 AnalysisResult
+2. 結合技術面和訊息面產生分析報告
+3. 解析 LLM 響應為結構化 AnalysisResult
 """
 
 import json
@@ -179,13 +179,13 @@ def _today_looks_complete_daily_bar(
 
 _QUOTE_LABELS_EN = {
     "今日行情": "Today's Quote",
-    "收盘价": "Close",
+    "收盤價": "Close",
     "上一完整交易日行情": "Last Complete Trading Day Quote",
-    "上一完整交易日收盘价": "Last Complete Trading Day Close",
+    "上一完整交易日收盤價": "Last Complete Trading Day Close",
     "最新行情": "Latest Quote",
-    "实时估算价": "Realtime Estimated Price",
-    "最新价": "Latest Price",
-    "盘中估算价": "Intraday Estimated Price",
+    "實時估算價": "Realtime Estimated Price",
+    "最新價": "Latest Price",
+    "盤中估算價": "Intraday Estimated Price",
 }
 
 
@@ -1660,7 +1660,7 @@ def get_stock_name_multi_source(
     data_manager = None
 ) -> str:
     """
-    多来源获取股票中文名称
+    多来源获取股票繁體中文名稱
 
     获取策略（按优先级）：
     1. 从传入的 context 中获取（realtime 数据）
@@ -1674,7 +1674,7 @@ def get_stock_name_multi_source(
         data_manager: DataFetcherManager 实例（可选）
 
     Returns:
-        股票中文名稱
+        股票繁體中文名稱
     """
     # 1. 从上下文获取（实时行情数据）
     if context:
@@ -1946,7 +1946,7 @@ class GeminiAnalyzer:
     # 核心模块：核心结论 + 数据透视 + 舆情情报 + 作战计划
     # ========================================
 
-    LEGACY_DEFAULT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體中文（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。絕對不要輸出任何簡體字。你是一位專注於趨勢交易的{market_placeholder}投資分析師，負責產生專業的【決策儀錶板】分析報告。
+    LEGACY_DEFAULT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。絕對不要輸出任何簡體字。你是一位專注於趨勢交易的{market_placeholder}投資分析師，負責產生專業的【決策儀錶板】分析報告。
 
 {guidelines_placeholder}
 
@@ -1960,7 +1960,7 @@ class GeminiAnalyzer:
 
 ```json
 {
-    "stock_name": "股票中文名稱",
+    "stock_name": "股票名稱",
     "sentiment_score": 0-100整數,
     "trend_prediction": "強烈看多/看多/震盪/看空/強烈看空",
     "operation_advice": "買入/加倉/持有/減倉/賣出/觀望",
@@ -2133,7 +2133,7 @@ class GeminiAnalyzer:
 - 建议输出可选展示字段 `dashboard.signal_attribution` 六字段；解釋推薦理由的構成，包括技術指標、新聞輿情、基本面、市場環境的貢獻度，以及最強看多/看空訊號。
 - 盘前、非交易日或未知阶段不得伪造今日盘中走势；quote/daily_bars/technical 存在 stale、fallback、missing、fetch_failed、partial 或 estimated 时，`confidence_level` 不得为高。"""
 
-    SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體中文（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位{market_placeholder}投資分析師，負責產生專業的【決策儀錶板】分析報告。
+    SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位{market_placeholder}投資分析師，負責產生專業的【決策儀錶板】分析報告。
 
 {guidelines_placeholder}
 
@@ -2148,7 +2148,7 @@ class GeminiAnalyzer:
 
 ```json
 {
-    "stock_name": "股票中文名稱",
+    "stock_name": "股票名稱",
     "sentiment_score": 0-100整数,
     "trend_prediction": "强烈看多/看多/震荡/看空/强烈看空",
     "operation_advice": "買入/加倉/持有/減倉/賣出/觀望",
@@ -2578,7 +2578,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 
 """ + _DASHBOARD_PRINCIPLES_EN
 
-    TEXT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體中文（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位專業的股票分析助手。
+    TEXT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位專業的股票分析助手。
 
 - 回答必须基于用户提供的数据与上下文
 - 若信息不足，要明确指出不确定性
@@ -2729,7 +2729,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 
 - 所有 JSON 键名保持不变。
 - `decision_type` 必须保持为 `buy|hold|sell`。
-- 所有面向用户的人类可读文本值必须使用中文。
+- 所有面向用户的人类可读文本值必须使用繁體中文。
 """
 
     def _has_channel_config(self, config: Config) -> bool:
@@ -4395,7 +4395,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 ---
 """
         else:
-            prompt = f"""# 决策仪表盘分析请求
+            prompt = f"""# 决策儀表盤分析請求
 
 ## 📊 股票基礎訊息
 | 項目 | 數據 |
@@ -4452,13 +4452,13 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 |------|------|
 {quote_rows_text}
 
-### 均线系统（关键判断指标）
-| 均線 | 數值 | 说明 |
+### 均線系统（關鍵判斷指標）
+| 均線 | 數值 | 說明 |
 |------|------|------|
-| MA5 | {today.get('ma5', 'N/A')} | 短期趋势线 |
-| MA10 | {today.get('ma10', 'N/A')} | 中短期趋势线 |
-| MA20 | {today.get('ma20', 'N/A')} | 中期趋势线 |
-| 均线形态 | {context.get('ma_status', unknown_text)} | 多头/空头/缠绕 |
+| MA5 | {today.get('ma5', 'N/A')} | 短期趨勢線 |
+| MA10 | {today.get('ma10', 'N/A')} | 中短期趨勢線 |
+| MA20 | {today.get('ma20', 'N/A')} | 中期趨勢線 |
+| 均线形态 | {context.get('ma_status', unknown_text)} | 多頭/空頭/纏繞 |
 """
         
         # 添加实时行情数据（量比、换手率等）
@@ -4480,20 +4480,20 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
         elif 'realtime' in context:
             rt = context['realtime']
             prompt += f"""
-### 实时行情增强数据
-| 指标 | 數值 | 解讀 |
+### 即時行情增強數據
+| 指標 | 數值 | 解讀 |
 |------|------|------|
 | 目前價格 | {rt.get('price', 'N/A')} 元 | |
 | **量比** | **{rt.get('volume_ratio', 'N/A')}** | {rt.get('volume_ratio_desc', '')} |
-| **换手率** | **{rt.get('turnover_rate', 'N/A')}%** | |
-| 市盈率(动态) | {rt.get('pe_ratio', 'N/A')} | |
-| 市净率 | {rt.get('pb_ratio', 'N/A')} | |
-| 总市值 | {self._format_amount(rt.get('total_mv'))} | |
+| **換手率** | **{rt.get('turnover_rate', 'N/A')}%** | |
+| 市盈率(動態) | {rt.get('pe_ratio', 'N/A')} | |
+| 市淨率 | {rt.get('pb_ratio', 'N/A')} | |
+| 總市值 | {self._format_amount(rt.get('total_mv'))} | |
 | 流通市值 | {self._format_amount(rt.get('circ_mv'))} | |
-| 60日涨跌幅 | {rt.get('change_60d', 'N/A')}% | 中期表现 |
+| 60日漲跌幅 | {rt.get('change_60d', 'N/A')}% | 中期表现 |
 """
 
-        # 添加财报与分红（价值投资口径）
+        # 添加財報與分紅（價值投資口徑）
         fundamental_context = context.get("fundamental_context") if isinstance(context, dict) else None
         earnings_block = (
             fundamental_context.get("earnings", {})
@@ -4540,13 +4540,13 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 """
             else:
                 prompt += f"""
-### 财报与分红（价值投资口径）
-| 指标 | 数值 | 说明 |
+### 財報與分紅（價值投資口徑）
+| 指標 | 數值 | 說明 |
 |------|------|------|
-| 最近报告期 | {report_date} | 来自结构化财报字段 |
-| 营业收入 | {financial_report.get('revenue', 'N/A')} | |
-| 归母净利润 | {financial_report.get('net_profit_parent', 'N/A')} | |
-| 经营现金流 | {financial_report.get('operating_cash_flow', 'N/A')} | |
+| 最近報告期 | {report_date} | 來自結構化財報字段 |
+| 營業收入 | {financial_report.get('revenue', 'N/A')} | |
+| 歸母淨利潤 | {financial_report.get('net_profit_parent', 'N/A')} | |
+| 經營現金流 | {financial_report.get('operating_cash_flow', 'N/A')} | |
 | ROE | {financial_report.get('roe', 'N/A')} | |
 | 近12个月每股现金分红 | {ttm_cash} | 仅现金分红、税前口径 |
 | TTM 股息率 | {ttm_yield} | 公式：近12个月每股现金分红 / 当前价格 × 100% |
@@ -4906,14 +4906,14 @@ Below are the news search results for **{stock_name}({code})** from the last {ne
 """
         elif news_context:
             prompt += f"""
-以下是 **{stock_name}({code})** 近{news_window_days}日的新闻搜索结果，请重点提取：
+以下是 **{stock_name}({code})** 近{news_window_days}日的新聞搜尋結果，請重點提取：
 1. 🚨 **風險警報**：減持、處罰、利空
 2. 🎯 **利好催化**：業績、合約、政策
 3. 📊 **業績預期**：年報預告、業績快報
 4. 🕒 **時間規則（强制）**：
-   - 输出到 `risk_alerts` / `positive_catalysts` / `latest_news` 的每一条都必须带具体日期（YYYY-MM-DD）
-   - 超出近{news_window_days}日窗口的新闻一律忽略
-   - 时间未知、无法确定发布日期的新闻一律忽略
+   - 輸出到 `risk_alerts` / `positive_catalysts` / `latest_news` 的每一條都必須帶具體日期（YYYY-MM-DD）
+   - 超出近{news_window_days}日窗口的新聞一律忽略
+   - 時間未知、無法確定發布日期的新聞一律忽略
 
 ```
 {news_context}
@@ -4925,7 +4925,7 @@ No recent news was found for this stock. Base the analysis mainly on the technic
 """
         else:
             prompt += """
-未搜索到该股票近期的相关新闻。请主要依据技术面数据进行分析。
+未搜尋到該股票近期的相關新聞。請主要依據技術面資料進行分析。
 """
 
         # 注入缺失数据警告
@@ -4959,7 +4959,7 @@ Generate the Decision Dashboard for **{stock_name}({code})**, output strictly in
 
 ## ✅ 分析任务
 
-请为 **{stock_name}({code})** 生成【决策仪表盘】，严格按照 JSON 格式输出。
+请为 **{stock_name}({code})** 生成【決策儀錶板】，嚴格依照 JSON 格式输出。
 """
         if context.get('is_index_etf') and english:
             prompt += """
@@ -4972,11 +4972,11 @@ Generate the Decision Dashboard for **{stock_name}({code})**, output strictly in
 """
         elif context.get('is_index_etf'):
             prompt += """
-> ⚠️ **指数/ETF 分析约束**：该标的为指数跟踪型 ETF 或市场指数。
-> - 风险分析仅关注：**指数走势、跟踪误差、市场流动性**
-> - 严禁将基金公司的诉讼、声誉、高管变动纳入风险警报
-> - 业绩预期基于**指数成分股整体表现**，而非基金公司财报
-> - `risk_alerts` 中不得出现基金管理人相关的公司经营风险
+> ⚠️ **指数/ETF 分析约束**：該標的為指數追蹤型 ETF 或市場指數。
+> - 風險分析僅關注：**指數走勢、追蹤誤差、市場流動性**
+> - 嚴禁將基金公司的訴訟、聲譽、高階主管變動納入風險警報
+> - 業績預期基於**指數成分股整體表現**，而非基金公司財報
+> - `risk_alerts` 中不得出現與基金管理人相關的公司經營風險
 
 """
         if english:
@@ -4987,9 +4987,9 @@ If the stock name shown above is "Stock {code}" or incorrect, **state the correc
 """
         else:
             prompt += f"""
-### ⚠️ 重要：输出正确的股票名称格式
-正确的股票名称格式为“股票名称（股票代码）”，例如“贵州茅台（600519）”。
-如果上方显示的股票名称为"股票{code}"或不正确，请在分析开头**明确输出该股票的正确中文全称**。
+### ⚠️ 重要：輸出正確的股票名稱格式
+正確的股票名稱格式為“股票名稱（股票代碼）”，例如“贵州茅台（600519）”。
+如果上方顯示的股票名稱為"股票{code}"或不正确，請在分析開頭**明確輸出該股票的正確繁體中文全稱**。
 """
         if english and use_legacy_default_prompt:
             prompt += """
@@ -5014,22 +5014,22 @@ If the stock name shown above is "Stock {code}" or incorrect, **state the correc
         elif use_legacy_default_prompt:
             prompt += f"""
 
-### 重点关注（必须明确回答）：
-1. ❓ 是否满足 MA5>MA10>MA20 多头排列？
-2. ❓ 当前乖离率是否在安全范围内（<5%）？—— 超过5%必须标注"严禁追高"
-3. ❓ 量能是否配合（缩量回调/放量突破）？
-4. ❓ 筹码结构是否健康？
-5. ❓ 消息面有无重大利空？（减持、处罚、业绩变脸等）
+### 重點關注（必须明确回答）：
+1. ❓ 是否滿足 MA5>MA10>MA20 多頭排列？
+2. ❓ 當前乖離率是否在安全範圍内（<5%）？—— 超過5%必須標註"嚴禁追高"
+3. ❓ 量能是否配合（缩量回調/放量突破）？
+4. ❓ 籌碼結構是否健康？
+5. ❓ 消息面有無重大利空？（減持、處罰、業績變臉等）
 """
         else:
             prompt += f"""
 
-### 重点关注（必须明确回答）：
-1. ❓ 当前结构是否满足激活技能的关键触发条件？
-2. ❓ 当前入场位置与风险回报是否合理？若偏离过大，请明确说明等待条件
-3. ❓ 量能、波动与筹码结构是否支持当前结论？
-4. ❓ 消息面有无重大利空或与技能结论冲突的信息？
-5. ❓ 若结论成立，具体触发条件、止损位、观察点分别是什么？
+### 重點關注（必須明確回答）：
+1. ❓ 目前結構是否滿足激活技能的關鍵觸發條件？
+2. ❓ 目前入場位置與風險報酬是否合理？若偏離過大，請明確說明等待條件
+3. ❓ 量能、波動與籌碼結構是否支持當前結論？
+4. ❓ 訊息面有無重大利空或與技能結論衝突的訊息？
+5. ❓ 若結論成立，具體觸發條件、停損位、觀察點分別是什麼？
 """
         if english:
             prompt += f"""
@@ -5047,16 +5047,16 @@ Output the complete Decision Dashboard in JSON format."""
         else:
             prompt += f"""
 
-### 决策仪表盘要求：
-- **股票名稱**：必須輸出正確的中文全稱（如"贵州茅台"而非"股票600519"）
-- **核心結論**：一句话说清该买/该卖/该等
-- **持仓分类建议**：空仓者怎么做 vs 持仓者怎么做
-- **具体狙击点位**：买入价、止损价、目标价（精确到分）
-- **检查清单**：每项用 ✅/⚠️/❌ 标记
-- **消息面时间合规**：`latest_news`、`risk_alerts`、`positive_catalysts` 不得包含超出近{news_window_days}日或时间未知的信息
-- **技术面一致性**：严禁把“空头排列”和“多头排列”等互斥结论同时当作有效依据；若基本面/事件面与技术面冲突，必须明确写“事件先行、技术待确认”或“基本面偏多，但技术面尚未确认”
+### 決策儀錶板要求：
+- **股票名稱**：必須輸出正確的繁體中文全稱（如"贵州茅台"而非"股票600519"）
+- **核心結論**：一句話說清該買/該賣/該等
+- **持倉分類建議**：空倉者怎麼做 vs 持倉者怎麼做
+- **具體狙擊點位**：買入價、停損價、目標價（精确到分）
+- **檢查清單**：每項用 ✅/⚠️/❌ 標記
+- **消息面時間合規**：`latest_news`、`risk_alerts`、`positive_catalysts` 不得包含超出近{news_window_days}日或时间未知的信息
+- **技術面一致性**：嚴禁把“空頭排列”和“多頭排列”等互斥结論同時當作有效依據；若基本面/事件面與技术面冲突，必須明確寫“事件先行、技術待確認”或“基本面偏多，但技術面尚未确認”
  
-请输出完整的 JSON 格式决策仪表盘。"""
+请输出完整的 JSON 格式决策儀表盤。"""
 
         if report_language == "en":
             prompt += """
@@ -5086,8 +5086,8 @@ Output the complete Decision Dashboard in JSON format."""
 ### 输出语言要求（最高优先级）
 - 所有 JSON 键名必须保持不变，不要翻译键名。
 - `decision_type` 必须保持为 `buy`、`hold`、`sell`。
-- 所有面向用户的人类可读文本值必须使用中文。
-- 当数据缺失时，请使用中文直接说明“{no_data_text}，无法判断”。
+- 所有面向用户的人类可读文本值必须使用繁體中文。
+- 当数据缺失时，请使用繁體中文直接说明“{no_data_text}，無法判斷”。
 """
         
         return prompt
