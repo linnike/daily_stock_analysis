@@ -678,9 +678,9 @@ _NEGATION_SCOPE_BREAK_TOKENS: Tuple[str, ...] = (
     "但",
     "反而",
     "反倒",
-    "转为",
-    "转成",
-    "改为",
+    "轉為",
+    "轉成",
+    "改為",
     "改成",
     " but ",
     " instead ",
@@ -688,18 +688,18 @@ _NEGATION_SCOPE_BREAK_TOKENS: Tuple[str, ...] = (
 )
 _SINGLE_CHAR_NEGATION_GAP_PREFIXES: Tuple[str, ...] = (
     "形成",
-    "出现",
-    "进入",
-    "转为",
-    "转成",
-    "构成",
-    "呈现",
-    "显示",
-    "属于",
+    "出現",
+    "進入",
+    "轉為",
+    "轉成",
+    "構成",
+    "呈現",
+    "顯示",
+    "屬於",
     "是",
     "有",
     "能",
-    "见",
+    "見",
     "站",
     "守",
     "破",
@@ -2261,8 +2261,8 @@ class GeminiAnalyzer:
     "volume_analysis": "量能分析",
     "pattern_analysis": "K線形態分析",
     "fundamental_analysis": "基本面分析",
-    "sector_position": "板块行业分析",
-    "company_highlights": "公司亮点/风险",
+    "sector_position": "板塊產業分析",
+    "company_highlights": "公司亮點/風險",
     "news_summary": "新聞摘要",
     "market_sentiment": "市場情緒",
     "hot_topics": "相關熱點",
@@ -2272,52 +2272,52 @@ class GeminiAnalyzer:
 }
 ```
 
-## 评分标准
+## 評分標準
 
-### 强烈买入（80-100分）：
+### 強烈買入（80-100分）：
 - ✅ 多個激活技能同時支持積極結論
 - ✅ 上行空間、觸發條件與風險報酬清晰
 - ✅ 關鍵風險已排除，部位與停損計畫明確
 - ✅ 重要數據和情報結論彼此一致
 
-### 买入（60-79分）：
-- ✅ 主信号偏积极，但仍有少量待确认项
-- ✅ 允许存在可控风险或次优入场点
-- ✅ 需要在报告中明确补充观察条件
+### 買入（60-79分）：
+- ✅ 主訊號偏積極，但仍有少量待確認項
+- ✅ 允許存在可控風險或次優入場點
+- ✅ 需要在報告中明確補充觀察條件
 
-### 观望（40-59分）：
-- ⚠️ 信号分歧较大，或缺乏足够确认
-- ⚠️ 风险与机会大致均衡
-- ⚠️ 更适合等待触发条件或回避不确定性
+### 觀望（40-59分）：
+- ⚠️ 訊號分歧較大，或缺乏足夠確認
+- ⚠️ 風險與機會大致均衡
+- ⚠️ 更適合等待觸發條件或迴避不確定性
 
-### 减仓（20-39分）：
-- ⚠️ 主要结论转弱，风险明显高于收益
-- ⚠️ 触发了部分失效条件，现有仓位需要降低暴露
-- ⚠️ 更适合保护收益而不是进攻
+### 減倉（20-39分）：
+- ⚠️ 主要結論轉弱，風險明顯高於效益
+- ⚠️ 觸發了部分失效條件，現有部位需要降低暴露
+- ⚠️ 更適合保護收益而不是進攻
 
-### 卖出（0-19分）：
-- ❌ 触发了止损/失效条件或重大利空
-- ❌ 趋势或风险显著恶化
-- ❌ 现有仓位应优先退出
+### 賣出（0-19分）：
+- ❌ 觸發了停損/失效條件或重大利
+- ❌ 趨勢或風險顯著惡化
+- ❌ 現有倉位應優先退出
 
 ## 决策仪表盘核心原则
 
-1. **核心结论先行**：一句话说清该买该卖
-2. **分持仓建议**：空仓者和持仓者给不同建议
-3. **精确狙击点**：必须给出具体价格，不说模糊的话
-4. **检查清单可视化**：用 ✅⚠️❌ 明确显示每项检查结果
-5. **风险优先级**：舆情中的风险点要醒目标出
+1. **核心结论先行**：一句話說清該買該賣
+2. **分持倉建議**：空倉者和持倉者給不同建議
+3. **精確狙擊點**：必須給出具體價格，不說模糊的話
+4. **檢查清單視覺化**：用 ✅⚠️❌ 明確顯示每項檢查結果
+5. **風險優先級**：輿情中的風險點要醒目標出
 
-## 可操作性与稳定性约束
+## 可操作性與穩定性約束
 
-- 不得仅因为单日涨跌或评分跨线就在“买入/卖出”之间剧烈切换。
-- 操作建议必须同时参考价格位置（支撑/压力位）、量能/筹码、主力资金流向和风险事件。
-- 股价位于支撑与压力之间、资金流不明确时，优先输出“持有/震荡/观望/洗盘观察”等可执行的中性建议；`decision_type` 仍保持 `hold`。
-- 只有在接近支撑确认或有效突破压力，且资金流/量价配合时，才能给出买入；接近压力且资金流出时不得追买。
-- 只有在跌破关键支撑、主力资金持续流出或风险显著放大时，才能给出卖出/减仓。
-- 必须输出 `dashboard.phase_decision` 七字段；盤中/午休/接近收盤要給出當前動作、觀察條件和下一次檢查點。
-- 建议输出可选展示字段 `dashboard.signal_attribution` 六字段；解釋推薦理由的構成，包括技術指標、新聞輿情、基本面、市場環境的貢獻度，以及最強看多/看空訊號。
-- 盘前、非交易日或未知阶段不得伪造今日盘中走势；quote/daily_bars/technical 存在 stale、fallback、missing、fetch_failed、partial 或 estimated 时，`confidence_level` 不得为高。"""
+- 不得僅因為單日漲跌或評分跨線就在“買入/賣出”之間劇烈切換。
+- 操作建議必須同時參考價格位置（支撐/壓力位）、量能/籌碼、主力資金流向與風險事件。
+- 股價位於支撑與壓力之間、資金流不明確時，優先輸出“持有/震蘯/觀望/洗盤觀察”等可執行的中性建議；`decision_type` 仍保持 `hold`。
+- 只有在接近支撑確認或有效突破壓力，且資金流/量價配合時，才能给出買入；接近壓力且資金流出時不得追買。
+- 只有在跌破關鍵支撑、主力資金持續流出或風險顯著放大時，才能给出賣出/減倉。
+- 必須輸出 `dashboard.phase_decision` 七字段；盤中/午休/接近收盤要給出當前動作、觀察條件和下一次檢查點。
+- 建議输出可選展示字段 `dashboard.signal_attribution` 六字段；解釋推薦理由的構成，包括技術指標、新聞輿情、基本面、市場環境的貢獻度，以及最強看多/看空訊號。
+- 盤前、非交易日或未知階段不得偽造今日盤中走勢；quote/daily_bars/technical 存在 stale、fallback、missing、fetch_failed、partial 或 estimated 时，`confidence_level` 不得為高。"""
 
     # English templates (REPORT_LANGUAGE=en/ko). They mirror LEGACY_DEFAULT_SYSTEM_PROMPT /
     # SYSTEM_PROMPT section by section so smaller models are not biased toward Chinese output
@@ -2580,9 +2580,9 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 
     TEXT_SYSTEM_PROMPT = """【核心輸出語言規範】請全程使用「繁體（台灣繁體）」進行分析與回覆，並使用台灣市場常見的財經術語（例如：用「台股」、「法人」、「操作計畫」代替對應的簡體詞彙）。你是一位專業的股票分析助手。
 
-- 回答必须基于用户提供的数据与上下文
-- 若信息不足，要明确指出不确定性
-- 不要编造价格、财报或新闻事实
+- 回答必須基於用户提供的數據與上下文
+- 若信息不足，要明確指出不確定性
+- 不要編造價格、財報或新聞事實
 """
 
     def __init__(
@@ -2728,8 +2728,8 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 ## 输出语言（最高优先级）
 
 - 所有 JSON 键名保持不变。
-- `decision_type` 必须保持为 `buy|hold|sell`。
-- 所有面向用户的人类可读文本值必须使用繁體中文。
+- `decision_type` 必須保持為 `buy|hold|sell`。
+- 所有面向用户的人類可讀文本值必須使用繁體中文。
 """
 
     def _has_channel_config(self, config: Config) -> bool:
@@ -3995,20 +3995,20 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
         analysis_context_pack_summary: Optional[str] = None,
     ) -> AnalysisResult:
         """
-        分析单只股票
+        分析單支股票
         
         流程：
-        1. 格式化输入数据（技术面 + 新闻）
-        2. 调用 Gemini API（带重试和模型切换）
-        3. 解析 JSON 响应
-        4. 返回结构化结果
+        1. 格式化输入數據（技術面 + 新聞）
+        2. 調用 Gemini API（帶重試和模型切換）
+        3. 解析 JSON 響應
+        4. 返回结構化结果
         
         Args:
-            context: 从 storage.get_analysis_context() 获取的上下文数据
-            news_context: 预先搜索的新闻内容（可选）
+            context: 从 storage.get_analysis_context() 獲取的上下文数据
+            news_context: 預先搜尋的新聞內容（可选）
 
         Returns:
-            AnalysisResult 对象
+            AnalysisResult 對象
         """
         def _emit_progress(progress: int, message: str) -> None:
             if progress_callback is None:
@@ -4071,14 +4071,14 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
                     f"{backend_error.error_code.value}。"
                 )
                 risk_warning = (
-                    f"请检查 {field}={requested_backend}（{reason}），"
+                    f"请檢查 {field}={requested_backend}（{reason}），"
                     "或配置有效后端/回退后重试。"
                 )
             return AnalysisResult(
                 code=code,
                 name=name,
                 sentiment_score=50,
-                trend_prediction=localize_trend_prediction('震荡', report_language),
+                trend_prediction=localize_trend_prediction('震蘯', report_language),
                 operation_advice=localize_operation_advice('持有', report_language),
                 confidence_level=localize_confidence_level('低', report_language),
                 analysis_summary=summary,
@@ -4097,7 +4097,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
                 code=code,
                 name=name,
                 sentiment_score=50,
-                trend_prediction=localize_trend_prediction('震荡', report_language),
+                trend_prediction=localize_trend_prediction('震蘯', report_language),
                 operation_advice=localize_operation_advice('持有', report_language),
                 confidence_level=localize_confidence_level('低', report_language),
                 analysis_summary=_localized_text(
@@ -4162,7 +4162,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
             logger.info(f"========== AI 分析 {name}({code}) ==========")
             logger.info(f"[LLM配置] 模型: {model_name}")
             logger.info(f"[LLM配置] Prompt 长度: {len(prompt)} 字符")
-            logger.info(f"[LLM配置] 是否包含新闻: {'是' if news_context else '否'}")
+            logger.info(f"[LLM配置] 是否包含新聞: {'是' if news_context else '否'}")
 
             # 本地 CLI backend 是进程执行能力，不记录完整 prompt。
             if backend_id in LOCAL_CLI_GENERATION_BACKEND_IDS:
@@ -4284,12 +4284,12 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
             
         except Exception as e:
             safe_error = self._sanitize_hermes_exception_text(e)
-            logger.error("AI 分析 %s(%s) 失败: %s", name, code, safe_error)
+            logger.error("AI 分析 %s(%s) 失敗: %s", name, code, safe_error)
             return AnalysisResult(
                 code=code,
                 name=name,
                 sentiment_score=50,
-                trend_prediction=localize_trend_prediction('震荡', report_language),
+                trend_prediction=localize_trend_prediction('震蘯', report_language),
                 operation_advice=localize_operation_advice('持有', report_language),
                 confidence_level=localize_confidence_level('低', report_language),
                 analysis_summary=_localized_text(
@@ -4301,7 +4301,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
                 risk_warning=_localized_text(
                     report_language,
                     en='Analysis failed. Please retry later or review manually.',
-                    zh='分析失败，请稍后重试或手动分析',
+                    zh='分析失敗，請稍後重試或手動分析',
                     ko='분석에 실패했습니다. 잠시 후 다시 시도하거나 수동으로 검토하세요.',
                 ),
                 success=False,
@@ -4319,14 +4319,14 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
         analysis_context_pack_summary: Optional[str] = None,
     ) -> str:
         """
-        格式化分析提示词（决策仪表盘 v2.0）
+        格式化分析提示词（决策儀表板 v2.0）
         
         包含：技術指標、即時行情（量比/換手率）、籌碼分佈、趨勢分析、新聞
         
         Args:
             context: 技術面資料上下文（包含增强数据）
             name: 股票名稱（默认值，可能被上下文覆盖）
-            news_context: 预先搜索的新闻内容
+            news_context: 預先搜尋的新聞內容
         """
         code = context.get('code', 'Unknown')
         report_language = normalize_report_language(report_language)
@@ -4335,7 +4335,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
         english = report_language in ("en", "ko")
         _, _, use_legacy_default_prompt = self._get_skill_prompt_sections()
         
-        # 优先使用上下文中的股票名称（从 realtime_quote 获取）
+        # 优先使用上下文中的股票名称（从 realtime_quote 獲取）
         stock_name = context.get('stock_name', name)
         if not stock_name or stock_name == f'股票{code}':
             stock_name = STOCK_NAME_MAP.get(code, f'股票{code}')
@@ -4359,8 +4359,8 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
             price_unit = " 元"
             pct_chg_label = "即時漲跌幅" if realtime_overlay_quote else "涨跌幅"
             volume_label = "即時成交量" if realtime_overlay_quote else "成交量"
-            amount_label = "即時成交額" if realtime_overlay_quote else "成交额"
-            open_label, high_label, low_label = "开盘价", "最高价", "最低价"
+            amount_label = "即時成交額" if realtime_overlay_quote else "成交額"
+            open_label, high_label, low_label = "開盤價", "最高價", "最低價"
         quote_rows = [
             f"| {close_price_label} | {today.get('close', 'N/A')}{price_unit} |",
         ]
@@ -4395,7 +4395,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 ---
 """
         else:
-            prompt = f"""# 决策儀表盤分析請求
+            prompt = f"""# 决策儀表板分析請求
 
 ## 📊 股票基礎訊息
 | 項目 | 數據 |
@@ -4458,7 +4458,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 | MA5 | {today.get('ma5', 'N/A')} | 短期趨勢線 |
 | MA10 | {today.get('ma10', 'N/A')} | 中短期趨勢線 |
 | MA20 | {today.get('ma20', 'N/A')} | 中期趨勢線 |
-| 均线形态 | {context.get('ma_status', unknown_text)} | 多頭/空頭/纏繞 |
+| 均線形態 | {context.get('ma_status', unknown_text)} | 多頭/空頭/纏繞 |
 """
         
         # 添加实时行情数据（量比、换手率等）
@@ -4548,8 +4548,8 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 | 歸母淨利潤 | {financial_report.get('net_profit_parent', 'N/A')} | |
 | 經營現金流 | {financial_report.get('operating_cash_flow', 'N/A')} | |
 | ROE | {financial_report.get('roe', 'N/A')} | |
-| 近12个月每股现金分红 | {ttm_cash} | 仅现金分红、税前口径 |
-| TTM 股息率 | {ttm_yield} | 公式：近12个月每股现金分红 / 当前价格 × 100% |
+| 近12个月每股現金分红 | {ttm_cash} | 僅現金分红、税前口徑 |
+| TTM 股息率 | {ttm_yield} | 公式：近12个月每股現金分红 / 當前價格 × 100% |
 | TTM 分红事件数 | {ttm_count} | |
 
 > 若上述字段为 N/A 或缺失，请明确写“数据缺失，无法判断”，禁止编造。
@@ -4611,16 +4611,16 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 """
             else:
                 prompt += f"""
-### 主力资金流向（操作建议过滤器）
-| 指标 | 数值 | 决策含义 |
+### 主力资金流向（操作建議過濾器）
+| 指标 | 數值 | 决策含義 |
 |------|------|----------|
-| 主力净流入 | {stock_flow.get('main_net_inflow', 'N/A')} | 正值偏支持，负值偏压制 |
-| 5日净流入 | {stock_flow.get('inflow_5d', 'N/A')} | 用于判断资金持续性 |
-| 10日净流入 | {stock_flow.get('inflow_10d', 'N/A')} | 用于判断资金持续性 |
-| 资金流入靠前板块 | {top_sector_text} | 板块资金共振参考 |
-| 资金流出靠前板块 | {bottom_sector_text} | 板块风险参考 |
+| 主力净流入 | {stock_flow.get('main_net_inflow', 'N/A')} | 正值偏支持，負值偏壓制 |
+| 5日净流入 | {stock_flow.get('inflow_5d', 'N/A')} | 用于判断资金持續性 |
+| 10日净流入 | {stock_flow.get('inflow_10d', 'N/A')} | 用于判断资金持續性 |
+| 資金流入靠前板塊 | {top_sector_text} | 板塊資金共振参考 |
+| 資金流出靠前板塊 | {bottom_sector_text} | 板块風險参考 |
 
-> 资金流向只能作为价格位置的过滤器：接近压力且主力流出时不得追买；接近支撑且未放量跌破时，优先判断为持有观察、震荡或洗盘观察。
+> 资金流向只能作为价格位置的过滤器：接近压力且主力流出时不得追买；接近支撑且未放量跌破时，优先判断为持有觀察、震盪或洗盤觀察。
 """
 
         # 加入三大法人動向（台股籌碼過濾器）— tw-only；仅当 institution 区块 status='ok'
@@ -4662,8 +4662,8 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 ### 三大法人动向（台股筹码过滤器，净买卖超，单位:股）
 | 法人 | 淨買賣超 | 決策意義 |
 |------|------|----------|
-| 外資 | {institution_data.get('foreign_net', 'N/A')} | 正值=净买超偏支持，负值=净卖超偏压制 |
-| 投信 | {institution_data.get('trust_net', 'N/A')} | 投信持续买超常伴随中线做多 |
+| 外資 | {institution_data.get('foreign_net', 'N/A')} | 正值=淨買超偏支持，負值=淨賣超偏壓制 |
+| 投信 | {institution_data.get('trust_net', 'N/A')} | 投信持續買超常伴隨中線做多 |
 | 自營商 | {institution_data.get('dealer_net', 'N/A')} | 短线避险/自营方向参考 |
 | 三大法人合计 | {institution_data.get('total_net', 'N/A')} | 台股最受關注的籌碼訊號 |
 | 資料日期 | {institution_data.get('date', 'N/A')} | 來源 {institution_data.get('source', 'N/A')} |
@@ -4707,7 +4707,7 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
                 else "请勿编造获利比例、平均成本或集中度；报告中只说明一次筹码数据不可用，不要把“数据缺失，无法判断”逐字段重复写入 `chip_structure`。"
             )
             chip_section_title = (
-                "Chip Distribution (efficiency indicators)" if english else "筹码分布数据（效率指标）"
+                "Chip Distribution (efficiency indicators)" if english else "籌碼分佈數據（效率指標）"
             )
             prompt += f"""
 ### {chip_section_title}
@@ -4775,25 +4775,25 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 {chr(10).join('- ' + note for note in consistency_notes)}
 """
             elif use_legacy_default_prompt:
-                bias_warning = "🚨 超过5%，严禁追高！" if trend.get('bias_ma5', 0) > 5 else "✅ 安全范围"
+                bias_warning = "🚨 超过5%，严禁追高！" if trend.get('bias_ma5', 0) > 5 else "✅ 安全範圍"
                 prompt += f"""
-### 趋势分析预判（基于交易理念）
+### 趨勢分析預判（基於交易理念）
 | 指标 | 数值 | 判定 |
 |------|------|------|
-| 趋势状态 | {trend.get('trend_status', unknown_text)} | |
-| 均线排列 | {trend.get('ma_alignment', unknown_text)} | MA5>MA10>MA20为多头 |
+| 趨勢狀態 | {trend.get('trend_status', unknown_text)} | |
+| 均線排列 | {trend.get('ma_alignment', unknown_text)} | MA5>MA10>MA20为多头 |
 | 趋势强度 | {trend.get('trend_strength', 0)}/100 | |
 | **乖离率(MA5)** | **{trend.get('bias_ma5', 0):+.2f}%** | {bias_warning} |
 | 乖离率(MA10) | {trend.get('bias_ma10', 0):+.2f}% | |
 | 量能状态 | {trend.get('volume_status', unknown_text)} | {trend.get('volume_trend', '')} |
 | 系统信号 | {trend.get('buy_signal', unknown_text)} | |
-| 系统评分 | {trend.get('signal_score', 0)}/100 | |
+| 系统評分 | {trend.get('signal_score', 0)}/100 | |
 
 #### 系统分析理由
-**买入理由**：
+**買入理由**：
 {chr(10).join('- ' + r for r in trend.get('signal_reasons', ['无'])) if trend.get('signal_reasons') else '- 无'}
 
-**风险因素**：
+**風險因素**：
 {chr(10).join('- ' + r for r in trend.get('risk_factors', ['无'])) if trend.get('risk_factors') else '- 无'}
 """
                 if consistency_notes:
@@ -4804,22 +4804,22 @@ Output strictly in the following JSON format. This is a complete Decision Dashbo
 """
             else:
                 bias_warning = (
-                    "🚨 偏离较大，需谨慎评估追高风险"
+                    "🚨 偏離较大，需謹慎評估追高風險"
                     if trend.get('bias_ma5', 0) > 5
-                    else "✅ 位置相对可控"
+                    else "✅ 位置相對可控"
                 )
                 prompt += f"""
 ### 技术与结构分析（供激活技能判断参考）
-| 指标 | 数值 | 说明 |
+| 指標 | 數值 | 說明 |
 |------|------|------|
-| 趋势状态 | {trend.get('trend_status', unknown_text)} | |
-| 均线排列 | {trend.get('ma_alignment', unknown_text)} | 结合激活技能判断结构强弱 |
-| 趋势强度 | {trend.get('trend_strength', 0)}/100 | |
-| **价格位置(MA5)** | **{trend.get('bias_ma5', 0):+.2f}%** | {bias_warning} |
-| 价格位置(MA10) | {trend.get('bias_ma10', 0):+.2f}% | |
-| 量能状态 | {trend.get('volume_status', unknown_text)} | {trend.get('volume_trend', '')} |
-| 系统信号 | {trend.get('buy_signal', unknown_text)} | |
-| 系统评分 | {trend.get('signal_score', 0)}/100 | |
+| 趨勢狀態 | {trend.get('trend_status', unknown_text)} | |
+| 均線排列 | {trend.get('ma_alignment', unknown_text)} | 结合激活技能判断结构强弱 |
+| 趨勢強度 | {trend.get('trend_strength', 0)}/100 | |
+| **價格位置(MA5)** | **{trend.get('bias_ma5', 0):+.2f}%** | {bias_warning} |
+| 價格位置(MA10) | {trend.get('bias_ma10', 0):+.2f}% | |
+| 量能状態 | {trend.get('volume_status', unknown_text)} | {trend.get('volume_trend', '')} |
+| 系统信號 | {trend.get('buy_signal', unknown_text)} | |
+| 系统評分 | {trend.get('signal_score', 0)}/100 | |
 
 #### 系统分析理由
 **支持因素**：
@@ -4928,7 +4928,7 @@ No recent news was found for this stock. Base the analysis mainly on the technic
 未搜尋到該股票近期的相關新聞。請主要依據技術面資料進行分析。
 """
 
-        # 注入缺失数据警告
+        # 注入缺失數據警告
         if context.get('data_missing') and english:
             prompt += """
 ⚠️ **Missing data warning**
@@ -4938,8 +4938,8 @@ When answering technical questions (such as moving averages or bias), state dire
 """
         elif context.get('data_missing'):
             prompt += """
-⚠️ **数据缺失警告**
-由于接口限制，当前无法获取完整的实时行情和技术指标数据。
+⚠️ **數據缺失警告**
+由于接口限制，當前無法獲取完整的實时行情和技术指標數據。
 请 **忽略上述表格中的 N/A 数据**，重点依据 **【📰 舆情情报】** 中的新聞進行基本面與情緒面分析。
 在回答技术面问题（如均线、乖离率）时，请直接说明“数据缺失，无法判断”，**严禁编造数据**。
 """
