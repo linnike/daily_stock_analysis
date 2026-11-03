@@ -5,7 +5,7 @@
 ===================================
 
 职责：
-1. 獲取大盤指數數據（上證、深證、創業板）
+1. 獲取大盤指數數據（台灣加權指數、台指期、櫃買指數）
 2. 搜尋市場新聞形成複盤情報
 3. 使用大模型產生每日大盤複盤報告
 """
@@ -128,7 +128,7 @@ class MarketAnalyzer:
     2. 获取市场涨跌统计
     3. 获取板块涨跌榜
     4. 搜索市场新闻
-    5. 生成大盘复盘报告
+    5. 生成大盤複盤報告
     """
     
     def __init__(
@@ -144,7 +144,7 @@ class MarketAnalyzer:
         Args:
             search_service: 搜索服务实例
             analyzer: AI分析器实例（用于调用LLM）
-            region: 市场区域 cn=A股 hk=港股 us=美股 jp=日本 kr=韩国
+            region: 市場區域 cn=台股 hk=港股 us=美股 jp=日本 kr=韩国
             config: 本次复盘使用的配置；未传时读取全局配置
         """
         self.config = config or get_config()
@@ -351,7 +351,7 @@ class MarketAnalyzer:
             }
             market_name = market_names.get(self.region, "A-share Market Recap")
             return f"## {date} {market_name}"
-        return f"## {date} 大盘复盘"
+        return f"## {date} 大盤複盤"
 
     def _get_index_hint(self) -> str:
         if self._get_review_language() == "en":
