@@ -471,19 +471,19 @@ jobs:
             echo "✅ LITELLM 配置文件已写入: $LITELLM_CONFIG"
           fi
 
-          # 判断运行模式
+          # 判斷運行模式
           MODE="${{ github.event.inputs.mode || 'full' }}"
           
           echo "=========================================="
-          echo "🚀 A股自选股智能分析系统"
+          echo "🚀 台股自選股智能分析系统"
           echo "=========================================="
-          echo "⏰ 时间: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
-          echo "🎯 运行模式: $MODE"
-          echo "📊 自选股: $STOCK_LIST"
-          echo "📝 报告类型: $REPORT_TYPE"
+          echo "⏰ 時間: $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
+          echo "🎯 運行模式: $MODE"
+          echo "📊 自選股: $STOCK_LIST"
+          echo "📝 報告類型: $REPORT_TYPE"
           echo ""
           echo "=========================================="
-          echo "📋 配置检查"
+          echo "📋 配置檢查"
           echo "=========================================="
           echo "【AI 配置】"
           if [ -n "$LITELLM_CONFIG" ] || [ -n "$LITELLM_API_KEY" ] || [ -n "$LITELLM_MODEL" ] || [ -n "$LLM_CHANNELS" ] || [ -n "$MODELFLARE_KEY" ] || [ -n "$LLM_MODELFLARE_API_KEY" ] || [ -n "$LLM_MODELFLARE_API_KEYS" ] || [ -n "$ANSPIRE_API_KEYS" ]; then
@@ -578,10 +578,10 @@ jobs:
           echo "📊 分析完成"
           echo "=========================================="
           if [ -d "reports" ] && [ "$(ls -A reports 2>/dev/null)" ]; then
-            echo "生成的报告:"
+            echo "生成的報告:"
             ls -la reports/
           else
-            echo "⚠️ 未生成报告文件"
+            echo "⚠️ 未生成報告文件"
           fi
           echo ""
           if [ -f "logs/stock_analysis_$(date +%Y%m%d).log" ]; then
