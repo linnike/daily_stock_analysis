@@ -14,20 +14,20 @@ from src.report_language import (
 
 
 _CONSERVATIVE_TAGS = {"high_risk", "market_cooling", "conservative", "low_position_cap"}
-_CONSERVATIVE_TEXT_MARKERS_ZH = ("退潮", "观望", "高风险", "谨慎", "保守", "仓位上限", "仓位不超过", "轻仓")
+_CONSERVATIVE_TEXT_MARKERS_ZH = ("退潮", "觀望", "高風險", "謹慎", "保守", "倉位上限", "倉位不超過", "輕倉")
 _CONSERVATIVE_TEXT_MARKERS_EN = ("high risk", "risk-off", "risk off", "watch", "cautious", "conservative", "position cap", "position limit")
 _CONSERVATIVE_TEXT_MARKERS_KO = ("고위험", "관망", "위험", "신중", "보수", "비중 상한", "비중 축소", "경량")
 _AGGRESSIVE_BUY_MARKERS_ZH = (
-    "立即买入",
-    "马上买入",
-    "建议买入",
-    "分批买入",
+    "立即買入",
+    "馬上買入",
+    "建議買入",
+    "分批買入",
     "分批低吸",
-    "回踩买入",
-    "积极买入",
-    "激进买入",
+    "回踩買入",
+    "積極買入",
+    "激進買入",
     "追高",
-    "加仓",
+    "加倉",
 )
 _AGGRESSIVE_BUY_MARKERS_EN = ("buy now", "strong buy", "aggressive buy", "chase", "add aggressively")
 _AGGRESSIVE_BUY_MARKERS_KO = (
@@ -40,7 +40,7 @@ _AGGRESSIVE_BUY_MARKERS_KO = (
     "추격 매수",
     "비중 확대",
 )
-_NEGATION_HINTS_ZH = ("暂不", "不建议", "不应", "不宜", "不能", "无法", "不允许", "禁止", "避免", "不要", "别", "先不")
+_NEGATION_HINTS_ZH = ("暫不", "不建議", "不應", "不宜", "不能", "無法", "不允許", "禁止", "避免", "不要", "别", "先不")
 _NEGATION_HINTS_EN = (" not ", "do not", "don't", "no ", "never", "avoid")
 _NEGATION_HINTS_KO = ("권하지 않", "하지 않", "하지 마", "불가", "금지", "피하", "보류", "않", "말")
 _NEGATION_LOOKBACK = 16
@@ -48,7 +48,7 @@ _GUARDRAIL_SENTIMENT_SCORE = 52
 
 
 def _softened_operation_advice(language: str) -> str:
-    return localize_operation_advice("观望", language)
+    return localize_operation_advice("觀望", language)
 
 
 def _negation_hints_for(language: str) -> tuple[str, ...]:
@@ -166,7 +166,7 @@ def _softened_position_strategy(language: str) -> dict[str, str]:
             "risk_control": "시장 위험이 완화되기 전까지 비중을 늘리지 말고 낙폭을 엄격히 관리하세요.",
         }
     return {
-        "suggested_position": "小仓/低仓位",
+        "suggested_position": "小倉/低倉位",
         "entry_plan": position_advice["no_position"],
         "risk_control": "大盤風险未緩解前不擴大倉位，嚴格控制回撤。",
     }
