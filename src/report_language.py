@@ -464,7 +464,7 @@ _REPORT_LABELS: Dict[str, Dict[str, str]] = {
         "latest_ex_dividend_label": "最近除息日",
         "institutional_flow_heading": "三大法人動向",
         "institutional_flow_note": "正數=淨買超，負數=淨賣超；單位為股。",
-        "inst_foreign_label": "外資,
+        "inst_foreign_label": "外資",
         "inst_trust_label": "投信",
         "inst_dealer_label": "自營商",
         "inst_total_label": "三大法人合计",
