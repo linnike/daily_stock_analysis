@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
 ===================================
-大盘复盘分析模块
+大盤複盤分析模組
 ===================================
 
 职责：
-1. 获取大盘指数数据（上证、深证、创业板）
-2. 搜索市场新闻形成复盘情报
-3. 使用大模型生成每日大盘复盘报告
+1. 獲取大盤指數數據（上證、深證、創業板）
+2. 搜尋市場新聞形成複盤情報
+3. 使用大模型產生每日大盤複盤報告
 """
 
 import logging
@@ -49,17 +49,17 @@ _ENGLISH_SECTION_PATTERNS = {
 }
 
 _CHINESE_SECTION_PATTERNS = {
-    "market_summary": r"###\s*一、(?:盘面总览|市场总结)",
-    "index_commentary": r"###\s*二、(?:指数结构|指数点评|主要指数)",
-    "sector_highlights": r"###\s*三、(?:板块主线|热点解读|板块表现)",
-    "funds_sentiment": r"###\s*四、(?:资金与情绪|资金动向)",
-    "news_catalysts": r"###\s*五、(?:消息催化|后市展望)",
+    "market_summary": r"###\s*一、(?:盤面總覽|市場總結)",
+    "index_commentary": r"###\s*二、(?:指數結構|指數點評|主要指數)",
+    "sector_highlights": r"###\s*三、(?:板塊主線|熱點解讀|板塊表現)",
+    "funds_sentiment": r"###\s*四、(?:資金與情緒|資金動向)",
+    "news_catalysts": r"###\s*五、(?:消息催化|後市展望)",
 }
 
 
 @dataclass
 class MarketIndex:
-    """大盘指数数据"""
+    """大盤指數數據"""
     code: str                    # 指数代码
     name: str                    # 指数名称
     current: float = 0.0         # 当前点位
@@ -91,7 +91,7 @@ class MarketIndex:
 
 @dataclass
 class MarketOverview:
-    """市场概览数据"""
+    """市場概覽數據"""
     date: str                           # 日期
     indices: List[MarketIndex] = field(default_factory=list)  # 主要指数
     up_count: int = 0                   # 上涨家数
