@@ -309,7 +309,7 @@ class MarketAnalyzer:
             return "Korea market" if review_language == "en" else "韩国市场"
         if review_language == "en":
             return "A-share market"
-        return "A股市场"
+        return "台股市場"
 
     def _get_turnover_unit_label(self) -> str:
         """Return the turnover unit label for the current market/language."""
@@ -1973,8 +1973,8 @@ Market conditions can change quickly. The data above is for reference only and d
 """
             return report
 
-        market_labels = {"cn": "A股", "us": "美股", "hk": "港股", "jp": "日股", "kr": "韩股"}
-        market_label = market_labels.get(self.region, "A股")
+        market_labels = {"cn": "台股", "us": "美股", "hk": "港股", "jp": "日股", "kr": "韩股"}
+        market_label = market_labels.get(self.region, "台股")
         dashboard_block = (
             self._build_stats_block(overview)
             if self._supports_market_light() or self.profile.has_market_stats
