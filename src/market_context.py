@@ -55,8 +55,8 @@ def detect_market(stock_code: Optional[str]) -> str:
 
 _MARKET_ROLES = {
     "cn": {
-        "zh": " A 股",
-        "en": "China A-shares",
+        "zh": " 台 股",
+        "en": "tw stock",
     },
     "hk": {
         "zh": "港股",
@@ -83,8 +83,8 @@ _MARKET_ROLES = {
 _MARKET_GUIDELINES = {
     "cn": {
         "zh": (
-            "- 本次分析对象为 **A 股**（中国沪深交易所上市股票）。\n"
-            "- 请关注 A 股特有的涨跌停机制（±10%/±20%/±30%）、T+1 交易制度及相关政策因素。"
+            "- 本次分析对象为 **台 股**（台灣股票交易所上市股票）。\n"
+            "- 請關注 台股特有的漲跌停機制（±10%/±20%/±30%）、T+1 交易制度及相關政策因素。"
         ),
         "en": (
             "- This analysis covers a **China A-share** (listed on Shanghai/Shenzhen exchanges).\n"
@@ -133,7 +133,7 @@ _MARKET_GUIDELINES = {
     },
     "tw": {
         "zh": (
-            "- 本次分析对象为 **台股**（台湾证券交易所上市 `.TW`，或台湾柜买中心上柜 `.TWO`）。\n"
+            "- 本次分析對象为 **台股**（台灣證券交易所上市 `.TW`，或台灣櫃買中心上櫃 `.TWO`）。\n"
             "- 请按台湾市场语境分析，关注新台币（TWD）汇率、台湾央行政策、半导体/电子代工产业链、"
             "三大法人（外资／投信／自营商）买卖超、融资融券与当冲，以及 TWSE/TPEx ±10% 涨跌停制度；"
             "不要套用 A 股专属的北向资金、龙虎榜等概念（台股的法人结构与资金流口径与 A 股不同）。"
