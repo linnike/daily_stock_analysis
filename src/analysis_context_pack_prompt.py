@@ -6,6 +6,32 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import Any, Dict, Iterable, List, Optional
 
+import urllib.request
+import json
+
+
+def fetch_taiwan_stock_chinese_name(code: str) -> str:
+  """透過台灣證交所公開 API 查詢上市櫃公司的中文簡稱"""
+  try:
+    # 移除結尾的 .TW 或 .TWO，取得純數字代號
+    clean_code = code.split(".")[0]
+
+    # 上市股票代號查詢 API
+    url = f"https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=tse_{clean_code}.tw"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+
+    with urllib.request.urlopen(req, timeout=3) as response:
+      data = json.loads(response.read().decode("utf-8"))
+      if "msgArray" in data and len(data["msgArray"]) > 0:
+        # 'n' 欄位通常為公司簡稱（中文）
+        chinese_name = data["msgArray"][0].get("n")
+        if chinese_name:
+          return chinese_name.strip()
+  except Exception:
+    pass
+
+  return ""
+
 
 BLOCK_LABELS_ZH = {
     "quote": "行情",
@@ -199,11 +225,27 @@ def _format_en(payload: Dict[str, Any]) -> str:
 
 
 def _subject_lines(payload: Dict[str, Any], *, lang: str) -> List[str]:
-    subject = payload.get("subject") if isinstance(payload.get("subject"), Mapping) else {}
-    code = _safe_text(subject.get("code"))
-    name = _safe_text(subject.get("stock_name"))
-    market = _safe_text(subject.get("market"))
-    version = _safe_text(payload.get("pack_version"))
+  subject = (
+      payload.get("subject")
+      if isinstance(payload.get("subject"), Mapping)
+      else {}
+  )
+  code = _safe_text(subject.get("code"))
+
+  # 1. 先嘗試取得原本的名稱
+  name = _safe_text(subject.get("stock_name"))
+
+  # 2. 如果代號是台股 (.TW / .TWO) 且原本名稱包含英文字母（代表是英文全稱），則從網路動態抓取中文
+  if code and (".TW" in code.upper() or ".TWO" in code.upper()):
+    if not name or any(ord(c) < 128 for c in name if c.isalpha()):
+      fetched_name = fetch_taiwan_stock_chinese_name(code)
+      if fetched_name:
+        name = fetched_name
+
+  market = _safe_text(subject.get("market"))
+  version = _safe_text(payload.get("pack_version"))
+
+  # ... (下方維持原樣)
 
     if lang == "en":
         label = code or "unknown"
