@@ -11,25 +11,29 @@ import json
 
 
 def fetch_taiwan_stock_chinese_name(code: str) -> str:
-  """透過台灣證交所公開 API 查詢上市櫃公司的中文簡稱"""
   try:
-    # 移除結尾的 .TW 或 .TWO，取得純數字代號
     clean_code = code.split(".")[0]
+    # 判斷上市 (.TW) 或預設使用 tse，若要支援上櫃可自行判斷
+    market_prefix = "otc" if ".TWO" in code.upper() else "tse"
+    url = f"https://mis.twse.com.tw/stock/api/getStockInfo.jsp?json=1&delay=0&ex_ch={market_prefix}_{clean_code}.tw"
 
-    # 上市股票代號查詢 API
-    url = f"https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=tse_{clean_code}.tw"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            )
+        },
+    )
     with urllib.request.urlopen(req, timeout=3) as response:
       data = json.loads(response.read().decode("utf-8"))
       if "msgArray" in data and len(data["msgArray"]) > 0:
-        # 'n' 欄位通常為公司簡稱（中文）
+        # 'n' 欄位為公司簡稱（例如：神基、台積電）
         chinese_name = data["msgArray"][0].get("n")
         if chinese_name:
           return chinese_name.strip()
   except Exception:
     pass
-
   return ""
 
 
