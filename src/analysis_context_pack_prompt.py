@@ -11,8 +11,8 @@ import json
 
 
 def fetch_taiwan_stock_chinese_name(code: str) -> str:
-    """透過台灣證交所公開 API 查詢上市櫃公司的中文簡稱"""
-    try:
+  """透過台灣證交所公開 API 查詢上市櫃公司的中文簡稱"""
+  try:
     # 移除結尾的 .TW 或 .TWO，取得純數字代號
     clean_code = code.split(".")[0]
 
@@ -27,7 +27,7 @@ def fetch_taiwan_stock_chinese_name(code: str) -> str:
         chinese_name = data["msgArray"][0].get("n")
         if chinese_name:
           return chinese_name.strip()
-    except Exception:
+  except Exception:
     pass
 
   return ""
