@@ -225,21 +225,22 @@ def _format_en(payload: Dict[str, Any]) -> str:
 
 
 def _subject_lines(payload: Dict[str, Any], *, lang: str) -> List[str]:
-    subject = (
-    payload.get("subject")
-    if isinstance(payload.get("subject"), Mapping)
-    else {}
-    )
-    code = _safe_text(subject.get("code"))
+  subject = (
+      payload.get("subject")
+      if isinstance(payload.get("subject"), Mapping)
+      else {}
+  )
+  code = _safe_text(subject.get("code"))
 
-    # 1. 先嘗試取得原本的名稱
-    name = _safe_text(subject.get("stock_name"))
+  # 1. 先取得原本的名稱
+  name = _safe_text(subject.get("stock_name"))
 
-    # 2. 如果代號是台股 (.TW / .TWO) 且原本名稱包含英文字母（代表是英文全稱），則從網路動態抓取中文
-    if code and (".TW" in code.upper() or ".TWO" in code.upper()):
+  # 2. 如果是台股，且名稱包含英文（需要轉中文）
+  if code and (".TW" in code.upper() or ".TWO" in code.upper()):
+    # 【注意】下面這行必須比上面的 if 往右多縮排一個層級（4個空格）！
     if not name or any(ord(c) < 128 for c in name if c.isalpha()):
-        fetched_name = fetch_taiwan_stock_chinese_name(code)
-        if fetched_name:
+      fetched_name = fetch_taiwan_stock_chinese_name(code)
+      if fetched_name:
         name = fetched_name
 
     market = _safe_text(subject.get("market"))
